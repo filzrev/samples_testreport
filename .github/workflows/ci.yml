@@ -23,10 +23,10 @@ jobs:
 
     - uses: ./.github/actions/build
 
-    - run: dotnet test -c Release -f net8.0 --no-build --collect:"XPlat Code Coverage" --consoleLoggerParameters:"Summary;Verbosity=Minimal"
+    - run: dotnet test -c Release -f net8.0 --no-build --collect:"XPlat Code Coverage"
       id: test-net80
 
-    - run: dotnet test -c Release -f net6.0 --no-build --collect:"XPlat Code Coverage" --consoleLoggerParameters:"Summary;Verbosity=Minimal"
+    - run: dotnet test -c Release -f net6.0 --no-build --collect:"XPlat Code Coverage"
       if: matrix.os == 'ubuntu-latest'
       id: test-net60
 

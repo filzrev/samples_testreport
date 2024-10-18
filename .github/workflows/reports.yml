@@ -1,6 +1,6 @@
 name: report-test-results
 run-name: >
-  Generate Test Report for
+  Generate Test Report2 for
   ${{ github.event_name == 'pull_request' && format('PR#{0}', github.event.number) || github.event.workflow_run.head_commit.message }}
 on:
   workflow_run:

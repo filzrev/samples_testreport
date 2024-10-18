@@ -1,4 +1,5 @@
 name: report-test-results
+run-name: "${{ github.event.inputs.id }}: ${{ github.event.inputs.name || format('Manually run by {0}', github.triggering_actor) }}"
 on:
   workflow_run:
     workflows:

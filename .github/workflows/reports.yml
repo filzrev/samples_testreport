@@ -1,17 +1,17 @@
 name: report-test-results
-run-name: >
-  Generate Test Report for
-  ${{ github.event_name == 'pull_request' && format('PR#{0}', github.event.number) || github.event.workflow_run.head_commit.message }}
+run-name: Generate Test Report for ${{ github.event.workflow_run.head_commit.message }}
 on:
   workflow_run:
     workflows:
       - ci
     types:
       - completed
+
 permissions:
   contents: read
   actions: read
   checks: write
+
 jobs:
   report:
     runs-on: ubuntu-latest
@@ -24,12 +24,13 @@ jobs:
         name: TestReports              # Name of the `check run` which will be created
         path: 'test/TestResults/*.trx'
         reporter: dotnet-trx
-        fail-on-error: false
+        fail-on-error: true
         fail-on-empty: true
 
     - name: Output message to job summary
       id: output-job-summary
       shell: pwsh
+      if: ${{ !cancelled() }}
       run: |
         $conclusion = "${{ steps.test-reports.outputs.conclusion }}"
         $passed     = "${{ steps.test-reports.outputs.passed }}"
@@ -55,10 +56,3 @@ jobs:
         'report<<$EOF' >> $env:GITHUB_OUTPUT
         $content       >> $env:GITHUB_OUTPUT
         '$EOF'         >> $env:GITHUB_OUTPUT
-
-
-    - name: Update PullRequest comment
-      uses: marocchino/sticky-pull-request-comment@331f8f5b4215f0445d3c07b4967662a32a2d3e31 # v2.9.0
-      with:
-        message: ${{ steps.output-job-summary.outputs.report }}
-

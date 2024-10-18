@@ -37,7 +37,7 @@ jobs:
         name: logs-${{ matrix.os }}
         path: |
           msbuild.binlog
-          test/**/TestResults/*.txt
+          test/**/TestResults/*.log
           test/**/TestResults/*.trx
           test/**/TestResults/*.html
           test/**/TestResults/*.ctrf

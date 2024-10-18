@@ -1,4 +1,5 @@
 name: ci
+run-name: >
   CI for
   ${{ github.event_name == 'pull_request' && format('PR#{0}', github.event.number) || github.event.workflow_run.head_commit.message }}
 on:

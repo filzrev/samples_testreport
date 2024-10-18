@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Create Test Report
-      uses: dorny/test-reporter@v1
+      uses: dorny/test-reporter@31a54ee7ebcacc03a09ea97a7e5465a47b84aea5 # v1.9.1
       id : test-reports
       with:
         artifact: /^logs-(.*)/         # Name of artifact to report
@@ -25,6 +25,7 @@ jobs:
         fail-on-empty: true
 
     - name: Output message to job summary
+      id: output-job-summary
       shell: pwsh
       run: |
         $conclusion = "${{ steps.test-reports.outputs.conclusion }}"
@@ -46,3 +47,15 @@ jobs:
         "@
 
         Write-Output $content >> $env:GITHUB_STEP_SUMMARY
+
+        # Write to output
+        "report<<$EOF" >> $env:GITHUB_OUTPUT
+        $content >> $env:GITHUB_GITHUB
+        "$EOF" >> $env:GITHUB_ENV
+
+
+    - name: Update PullRequest comment
+      uses: marocchino/sticky-pull-request-comment@331f8f5b4215f0445d3c07b4967662a32a2d3e31 # v2.9.0
+      with:
+        message: ${{ steps.output-job-summary.outputs.report }}
+

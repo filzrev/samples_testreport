@@ -28,13 +28,13 @@ jobs:
     - name: Output message to job summary
       shell: pwsh
       run: |
-        $conclusion = ${{ steps.test-reports.outputs.conclusion }}
-        $passed     = ${{ steps.test-reports.outputs.passed }}
-        $failed     = ${{ steps.test-reports.outputs.failed }}
-        $skipped    = ${{ steps.test-reports.outputs.skipped }}
-        $time       = ${{ steps.test-reports.outputs.time }}
-        $url        = ${{ steps.test-reports.outputs.url }}
-        $url_html   = ${{ steps.test-reports.outputs.url_html }}
+        $conclusion = "${{ steps.test-reports.outputs.conclusion }}"
+        $passed     = "${{ steps.test-reports.outputs.passed }}"
+        $failed     = "${{ steps.test-reports.outputs.failed }}"
+        $skipped    = "${{ steps.test-reports.outputs.skipped }}"
+        $time       = "${{ steps.test-reports.outputs.time }}"
+        $url        = "${{ steps.test-reports.outputs.url }}"
+        $url_html   = "${{ steps.test-reports.outputs.url_html }}"
 
         $content = @"
         ## Summary of Test Report

@@ -48,10 +48,10 @@ jobs:
 
         Write-Output $content >> $env:GITHUB_STEP_SUMMARY
 
-        # Write to output
+        # Write content to outputs
         "report<<$EOF" >> $env:GITHUB_OUTPUT
-        $content >> $env:GITHUB_GITHUB
-        "$EOF" >> $env:GITHUB_ENV
+        $content       >> $env:GITHUB_OUTPUT
+        "$EOF"         >> $env:GITHUB_OUTPUT
 
 
     - name: Update PullRequest comment
